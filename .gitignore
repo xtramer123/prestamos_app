@@ -1,0 +1,54 @@
+# Generado/cachés de Flutter y Dart (se regeneran con flutter pub get / flutter build)
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+coverage/
+
+# Registrantes de plugins generados por Flutter
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+macos/Flutter/GeneratedPluginRegistrant.swift
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m
+linux/flutter/generated_plugin_registrant.cc
+linux/flutter/generated_plugin_registrant.h
+linux/flutter/generated_plugins.cmake
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/Flutter/.last_build_id
+
+# IDE / editor
+.idea/
+.vscode/
+*.iml
+
+# Android generado (local.properties apunta al SDK de cada máquina)
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+*.jks
+*.keystore
+
+# iOS/macOS generado
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/ephemeral/
+ios/Runner.xcworkspace/xcuserdata/
+macos/Pods/
+macos/Flutter/ephemeral/
+linux/flutter/ephemeral/
+
+# Python (API)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

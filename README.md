@@ -1,6 +1,6 @@
 # PrestaFácil — app Flutter + API FastAPI/MySQL
 
-Proyecto para compartir: **estructura completa de la app Flutter + API REST**. Los artefactos generados (`build/`, `.dart_tool/`, APKs) **no están incluidos**: compílalos tú con los pasos de abajo. El repo no tiene ningún `.gitignore` por diseño.
+Proyecto para compartir: **estructura completa de la app Flutter + API REST**. Los artefactos generados (`build/`, `.dart_tool/`, APKs) **no están incluidos**: compílalos tú con los pasos de abajo. Hay un `.gitignore` que excluye únicamente generados, cachés, rutas locales del SDK y archivos de IDE; todo lo necesario para compilar y ejecutar está versionado.
 
 ## Credenciales de prueba
 
@@ -125,9 +125,12 @@ Cada préstamo incluye `total_a_cobrar = monto + interes`.
 ├── API/seed_datos.py     # Usuario demo + 6 préstamos
 ├── API/smoke_test.ps1    # Prueba end-to-end de la API
 ├── assets/fonts/         # Poppins (sin depender de red en runtime)
-├── android/              # Proyecto Android (sin carpeta windows)
+├── android/              # Proyecto Android (con Gradle wrapper; sin carpeta windows)
 ├── test/                 # Pruebas unitarias
+├── .gitignore            # Solo generados/cachés/rutas locales/IDE
 └── pubspec.yaml          # Dependencias Flutter
 ```
 
-> `API/.env` contiene una `SECRET_KEY` de desarrollo: cámbiala si sales de local. No hay `.gitignore` en el repositorio.
+> `API/.env` y `pubspec.lock` **sí están incluidos** porque se necesitan para ejecutar la API y fijar versiones. El `.gitignore` no los toca: solo excluye `build/`, `.dart_tool/`, cachés de Gradle/Python, `local.properties`, registrantes de plugins generados y archivos de IDE, que se regeneran solos.
+
+> `API/.env` contiene una `SECRET_KEY` de desarrollo: cámbiala si sales de local.
