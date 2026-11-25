@@ -1,0 +1,52 @@
+Actúa como un desarrollador backend senior en Python. Crea una API REST local completa usando **FastAPI** y **MySQL (XAMPP)** para un sistema de gestión de préstamos, siguiendo estrictamente las especificaciones que te indico a continuación.
+
+### 1. Base de datos automática (MySQL de XAMPP)
+- Al iniciar la aplicación (por ejemplo, usando el ciclo de vida `lifespan` de FastAPI o al inicializar el motor de base de datos), el código debe conectarse primero al servidor MySQL local de XAMPP (por defecto `localhost`, puerto `3306`, usuario `root`, contraseña vacía o configurada por `.env`).
+- Si la base de datos (por ejemplo, `prestamos_db`) **no existe**, debe crearla automáticamente (`CREATE DATABASE IF NOT EXISTS ...`).
+- Si las tablas **no existen**, debe crearlas automáticamente con sus tipos de datos, restricciones, claves primarias, valores por defecto y clave foránea.
+- Incluye un archivo `.env.example` y lee las credenciales desde variables de entorno (con valores por defecto para XAMPP local).
+
+### 2. Modelo de base de datos (2 tablas relacionadas)
+Un prestamista (`usuario`) otorga muchos préstamos (`prestamo`):
+
+**Tabla `usuario` (prestamista):**
+- `id`: `bigint`, Primary Key, autoincremental (`AUTO_INCREMENT`).
+- `nombre`: `varchar(100)`, `NOT NULL`.
+- `email`: `varchar(120)`, `NOT NULL`, `UNIQUE`.
+- `password`: `varchar(100)`, `NOT NULL` (siempre cifrada con bcrypt, nunca en texto plano).
+- `rol`: `varchar(20)`, `NOT NULL`, valor por defecto `'USER'`.
+
+**Tabla `prestamo`:**
+- `id`: `bigint`, Primary Key, autoincremental (`AUTO_INCREMENT`).
+- `cliente`: `varchar(100)`, `NOT NULL` (persona que recibe el dinero).
+- `dni`: `varchar(8)`, `NOT NULL`.
+- `monto`: `decimal(10,2)`, `NOT NULL`, mayor a `0`.
+- `interes`: `decimal(5,2)`, `NOT NULL` (porcentaje).
+- `fecha_prestamo`: `date`, `NOT NULL` (lo asigna la API automáticamente al registrar).
+- `fecha_vencimiento`: `date`, `NOT NULL`.
+- `pagado`: `boolean`, `NOT NULL`, valor por defecto `false`.
+- `usuario_id`: `bigint`, `NOT NULL`, Foreign Key hacia `usuario(id)`.
+
+### 3. Endpoints requeridos
+**Auth (Públicos):**
+- `POST /auth/register`: Crea la cuenta del prestamista (cifrando la contraseña y validando que el `email` no esté repetido) y devuelve un token JWT.
+- `POST /auth/login`: Valida `email` y contraseña y devuelve un token JWT.
+
+**Préstamo (Requieren token JWT válido en `Authorization: Bearer <token>`):**
+- `GET /prestamos`: Devuelve los préstamos otorgados por el prestamista autenticado según el token, incluyendo el campo calculado `total_a_cobrar` (o `total` = `monto + interés`).
+- `GET /prestamos/{id}`: Devuelve un préstamo específico del prestamista autenticado por su `id` (incluyendo el total a cobrar). Si no existe o pertenece a otro prestamista, devuelve error adecuado (404/403).
+- `POST /prestamos`: Registra el dinero prestado a un cliente asignando `fecha_prestamo` desde la API y vinculándolo al `usuario_id` obtenido del token.
+- `PUT /prestamos/{id}`: Modifica el préstamo o lo marca como pagado (`pagado = true/false`), verificando que pertenezca al prestamista del token.
+- `DELETE /prestamos/{id}`: Elimina/anula un préstamo registrado por error, verificando que pertenezca al prestamista del token.
+
+### 4. Requisitos de seguridad y lógica
+- Contraseñas cifradas con **bcrypt**.
+- Login devuelve un **JWT** firmado con clave secreta (desde `.env`), con fecha de expiración y con el `email` del prestamista como `subject` (`sub`).
+- API **stateless** (sin sesiones). Si falta el token, está alterado o vencido, los endpoints protegidos deben responder **401 Unauthorized**.
+- El prestamista siempre se identifica a partir del **token**, nunca desde la URL ni desde el cuerpo de la petición (ningún usuario puede ver ni modificar la cartera de otro).
+- Todo préstamo devuelto por la API debe incluir el **total a cobrar** (`monto + interés`).
+
+### 5. Entrega esperada
+- Estructura de carpetas limpia y modular (configuración, base de datos, modelos, esquemas Pydantic, seguridad/JWT, rutas/routers).
+- Código completo de todos los archivos necesarios, listo para ejecutar.
+- Instrucciones claras paso a paso de cómo instalar dependencias, iniciar MySQL en XAMPP y levantar el servidor con `uvicorn`.
