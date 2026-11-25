@@ -77,52 +77,88 @@ class AppTheme {
       error: AppColors.red,
     );
 
+    // Importante: Material 3 toma el color del texto de los TextField desde
+    // `textTheme.bodyLarge`. Si ese estilo no define color, el texto escrito
+    // queda invisible. Por eso todos los estilos llevan color explícito.
     final textTheme = base.textTheme
         .apply(bodyColor: AppColors.ink, displayColor: AppColors.ink)
         .copyWith(
           displaySmall: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 32,
             fontWeight: FontWeight.w700,
             height: 1.15,
             letterSpacing: -0.8,
           ),
           headlineMedium: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 26,
             fontWeight: FontWeight.w700,
             height: 1.2,
             letterSpacing: -0.6,
           ),
           headlineSmall: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 22,
             fontWeight: FontWeight.w600,
             height: 1.25,
             letterSpacing: -0.4,
           ),
           titleLarge: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 19,
             fontWeight: FontWeight.w600,
             letterSpacing: -0.3,
           ),
           titleMedium: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 15.5,
             fontWeight: FontWeight.w600,
           ),
           titleSmall: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 13.5,
             fontWeight: FontWeight.w600,
           ),
-          bodyLarge: const TextStyle(fontSize: 15, height: 1.55),
-          bodyMedium: const TextStyle(fontSize: 13.5, height: 1.55),
-          bodySmall: const TextStyle(fontSize: 12, height: 1.45),
+          bodyLarge: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
+            fontSize: 15,
+            height: 1.55,
+          ),
+          bodyMedium: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
+            fontSize: 13.5,
+            height: 1.55,
+          ),
+          bodySmall: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
+            fontSize: 12,
+            height: 1.45,
+          ),
           labelLarge: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 14.5,
             fontWeight: FontWeight.w600,
           ),
           labelMedium: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 12.5,
             fontWeight: FontWeight.w600,
           ),
           labelSmall: const TextStyle(
+            fontFamily: 'Poppins',
+            color: AppColors.ink,
             fontSize: 11,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.3,
@@ -133,6 +169,11 @@ class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: AppColors.bg,
       textTheme: textTheme,
+      textSelectionTheme: const TextSelectionThemeData(
+        cursorColor: AppColors.green,
+        selectionColor: Color(0x3316A34A),
+        selectionHandleColor: AppColors.greenDark,
+      ),
       splashFactory: InkSparkle.splashFactory,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,

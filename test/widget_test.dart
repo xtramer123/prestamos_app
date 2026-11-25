@@ -1,7 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prestamos_app/models/prestamo.dart';
+import 'package:prestamos_app/theme/app_theme.dart';
 
 void main() {
+  test('El texto escrito en los campos tiene color visible', () {
+    final theme = AppTheme.light();
+
+    // Material 3 usa bodyLarge para el texto de los TextField.
+    expect(theme.textTheme.bodyLarge?.color, AppColors.ink);
+    expect(theme.textTheme.bodyMedium?.color, AppColors.ink);
+    expect(theme.textTheme.titleMedium?.color, AppColors.ink);
+    expect(theme.textSelectionTheme.cursorColor, AppColors.green);
+  });
+
   test('Cálculo del total según la API (monto + interés)', () {
     final prestamo = Prestamo(
       id: 1,
